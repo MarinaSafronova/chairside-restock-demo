@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Maryna Safronova" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="Clickable front-end demo of an intelligent dental clinic restock assistant"
+    />
+    <title>Restock review — Chairside</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand" aria-label="Chairside">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="img">
+              <path d="M9 8.5h14v15H9z" />
+              <path d="M12.5 5v7M19.5 5v7M5.5 12h7M19.5 12h7" />
+            </svg>
+          </span>
+          <span>Chairside</span>
+        </div>
+      </header>
+
+      <main class="page" id="reviewPage">
+        <section class="page-heading">
+          <div>
+            <div class="eyebrow">
+              <span class="spark" aria-hidden="true">
+                <svg viewBox="0 0 20 20"><path d="M10 2.5 11.6 7l4.4 1.6-4.4 1.6-1.6 4.5-1.6-4.5L4 8.6 8.4 7 10 2.5Z" /></svg>
+              </span>
+              Harbour Dental · Restock draft
+            </div>
+            <h1>Here’s the order I’d place today</h1>
+            <p class="heading-copy" id="headingCopy">
+              Five recommendations, each with the calculation behind it. One needs your judgement.
+            </p>
+          </div>
+          <div class="status-badge" id="orderStatus"><span></span> Sample order · no live data</div>
+        </section>
+
+        <section class="decision-strip" aria-label="Order optimisation summary">
+          <div class="decision-intro">
+            <span class="decision-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3 14 9l6 2-6 2-2 6-2-6-6-2 6-2 2-6Z" /></svg>
+            </span>
+            <div>
+              <strong>Optimised for how Harbour Dental actually buys</strong>
+              <p>I compared prices with delivery, past orders and how long each item will last.</p>
+            </div>
+          </div>
+          <div class="decision-metrics">
+            <div><strong>5 items</strong><span>to review</span></div>
+            <div><strong>3 suppliers</strong><span>in this order</span></div>
+            <div><strong id="reviewMetric">1 flag</strong><span id="reviewMetricLabel">needs a decision</span></div>
+          </div>
+        </section>
+
+        <div class="content-grid">
+          <section class="order-card" aria-labelledby="order-title">
+            <div class="order-card-header">
+              <div>
+                <div class="title-line">
+                  <h2 id="order-title" tabindex="-1">5 items</h2>
+                  <span class="count-pill">3 suppliers</span>
+                  <span class="attention-pill" id="attentionPill">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 6v4M10 14h.01M3 17h14L10 3 3 17Z" /></svg>
+                    <span id="decisionCount">1 decision</span>
+                  </span>
+                </div>
+                <p>Prices include GST · expected Thu 29–Fri 30 Oct</p>
+              </div>
+              <button class="text-button" id="editOrder" type="button">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m13.5 3.5 3 3L7 16H4v-3L13.5 3.5Z" /></svg>
+                Edit quantities
+              </button>
+            </div>
+
+            <div class="table-heading" aria-hidden="true">
+              <span>Item and recommendation</span>
+              <span>Qty</span>
+              <span>Supplier · line total</span>
+            </div>
+
+            <div class="order-lines">
+              <article class="order-line order-line--selected" data-unit-price="15.5" data-decision-key="gloves">
+                <div class="product-cell">
+                  <span class="product-icon product-icon--blue" aria-hidden="true">
+                    <svg viewBox="0 0 28 28"><path d="M9.5 6.5h9l2 5v10h-13v-10l2-5ZM8 11.5h12M11 6.5v-2h6v2" /></svg>
+                  </span>
+                  <div>
+                    <h3>Nitrile examination gloves</h3>
+                    <p>Powder-free · blue · medium · box of 100</p>
+                    <div class="reason-list">
+                      <span><i class="check-dot"></i>12 boxes covers ~3 weeks at your usual use</span>
+                      <span><i class="price-dot"></i>A$8.40 less than the next option after delivery for 12 boxes</span>
+                    </div>
+                    <button class="inspect-button" type="button" data-inspect="gloves">
+                      See the decision math
+                      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="quantity-cell">
+                  <span class="quantity-static">12 boxes</span>
+                  <div class="stepper" hidden>
+                    <button type="button" data-step="-1" aria-label="Decrease gloves quantity">−</button>
+                    <span data-quantity>12</span>
+                    <button type="button" data-step="1" aria-label="Increase gloves quantity">+</button>
+                  </div>
+                </div>
+                <div class="supplier-cell">
+                  <strong>Dental Essentials</strong>
+                  <span class="line-price">A$186.00</span>
+                  <small>A$15.50 / box</small>
+                </div>
+              </article>
+
+              <article class="order-line" data-unit-price="69" data-decision-key="composite">
+                <div class="product-cell">
+                  <span class="product-icon product-icon--violet" aria-hidden="true">
+                    <svg viewBox="0 0 28 28"><path d="M8 8h12v13H8zM11 5h6v3M11 12h6M14 9v6" /></svg>
+                  </span>
+                  <div>
+                    <h3>Universal composite capsules</h3>
+                    <p>A2 shade · 20 × 0.25 g capsules</p>
+                    <div class="reason-list">
+                      <span><i class="check-dot"></i>4 packs matches what you use in 28 days</span>
+                      <span><i class="bundle-dot"></i>Grouped with anaesthetic to save A$18 delivery</span>
+                    </div>
+                    <button class="inspect-button" type="button" data-inspect="composite">
+                      See the decision math
+                      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="quantity-cell">
+                  <span class="quantity-static">4 packs</span>
+                  <div class="stepper" hidden>
+                    <button type="button" data-step="-1" aria-label="Decrease composite quantity">−</button>
+                    <span data-quantity>4</span>
+                    <button type="button" data-step="1" aria-label="Increase composite quantity">+</button>
+                  </div>
+                </div>
+                <div class="supplier-cell">
+                  <strong>Henry Schein</strong>
+                  <span class="line-price">A$276.00</span>
+                  <small>A$69.00 / pack</small>
+                </div>
+              </article>
+
+              <article class="order-line order-line--warning" data-unit-price="49.5" data-decision-key="anaesthetic">
+                <div class="product-cell">
+                  <span class="product-icon product-icon--amber" aria-hidden="true">
+                    <svg viewBox="0 0 28 28"><path d="M8 9h12v12H8zM11 6h6v3M11 13h6M14 10v6" /></svg>
+                  </span>
+                  <div>
+                    <div class="product-title-row">
+                      <h3>Lignocaine 2% cartridges</h3>
+                      <span class="review-tag">Please review</span>
+                    </div>
+                    <p>1:80,000 adrenaline · box of 50</p>
+                    <div class="reason-list">
+                      <span><i class="check-dot"></i>5 boxes covers ~25 days at current use</span>
+                      <span><i class="bundle-dot"></i>Lowest quote for this brand; ships with the composite</span>
+                      <span class="warning-reason"><i></i>Price is 17% higher than your last order</span>
+                    </div>
+                    <button class="inspect-button" type="button" data-inspect="anaesthetic">
+                      Inspect the price change
+                      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+                    </button>
+                    <button class="alternative-button" type="button" aria-expanded="false">
+                      Compare suggested alternative
+                      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg>
+                    </button>
+                    <div class="alternative-panel" hidden>
+                      <div>
+                        <strong>Your decision</strong>
+                        <span>Suggested alternative: 2% lignocaine, 1:80,000 adrenaline, box of 50 (different brand) at A$43.20 / box. Check it against clinic requirements before choosing.</span>
+                      </div>
+                      <div class="alternative-actions">
+                        <button type="button" class="keep-current">Keep familiar brand</button>
+                        <button type="button" class="use-alternative">Use alternative · save A$31.50</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="quantity-cell">
+                  <span class="quantity-static">5 boxes</span>
+                  <div class="stepper" hidden>
+                    <button type="button" data-step="-1" aria-label="Decrease anaesthetic quantity">−</button>
+                    <span data-quantity>5</span>
+                    <button type="button" data-step="1" aria-label="Increase anaesthetic quantity">+</button>
+                  </div>
+                </div>
+                <div class="supplier-cell">
+                  <strong>Henry Schein</strong>
+                  <span class="line-price">A$247.50</span>
+                  <small>A$49.50 / box</small>
+                </div>
+              </article>
+
+              <article class="order-line" data-unit-price="12.9" data-decision-key="bibs">
+                <div class="product-cell">
+                  <span class="product-icon product-icon--mint" aria-hidden="true">
+                    <svg viewBox="0 0 28 28"><path d="M7 8h14v13H7zM10 5h8v3M10 12h8M10 16h5" /></svg>
+                  </span>
+                  <div>
+                    <h3>Patient bibs</h3>
+                    <p>2-ply paper + poly · blue · pack of 125</p>
+                    <div class="reason-list">
+                      <span><i class="check-dot"></i>8 packs matches your usual monthly order</span>
+                      <span><i class="price-dot"></i>Lowest price for this exact item</span>
+                    </div>
+                    <button class="inspect-button" type="button" data-inspect="bibs">
+                      See the decision math
+                      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="quantity-cell">
+                  <span class="quantity-static">8 packs</span>
+                  <div class="stepper" hidden>
+                    <button type="button" data-step="-1" aria-label="Decrease bib quantity">−</button>
+                    <span data-quantity>8</span>
+                    <button type="button" data-step="1" aria-label="Increase bib quantity">+</button>
+                  </div>
+                </div>
+                <div class="supplier-cell">
+                  <strong>MediDent</strong>
+                  <span class="line-price">A$103.20</span>
+                  <small>A$12.90 / pack</small>
+                </div>
+              </article>
+
+              <article class="order-line" data-unit-price="14.8" data-decision-key="tips">
+                <div class="product-cell">
+                  <span class="product-icon product-icon--coral" aria-hidden="true">
+                    <svg viewBox="0 0 28 28"><path d="M6 10h16M9 7h10v14H9zM12 13h4M12 17h4" /></svg>
+                  </span>
+                  <div>
+                    <h3>High-volume evacuator tips</h3>
+                    <p>Vented · white · bag of 250</p>
+                    <div class="reason-list">
+                      <span><i class="check-dot"></i>6 bags covers 4 weeks at current use</span>
+                      <span><i class="bundle-dot"></i>MediDent's 250-pack is lowest per tip, about 10% below usual</span>
+                    </div>
+                    <button class="inspect-button" type="button" data-inspect="tips">
+                      See the decision math
+                      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="quantity-cell">
+                  <span class="quantity-static">6 bags</span>
+                  <div class="stepper" hidden>
+                    <button type="button" data-step="-1" aria-label="Decrease tip quantity">−</button>
+                    <span data-quantity>6</span>
+                    <button type="button" data-step="1" aria-label="Increase tip quantity">+</button>
+                  </div>
+                </div>
+                <div class="supplier-cell">
+                  <strong>MediDent</strong>
+                  <span class="line-price">A$88.80</span>
+                  <small>A$14.80 / bag</small>
+                </div>
+              </article>
+            </div>
+
+            <div class="edit-bar" id="editBar" hidden>
+              <span>Quantities updated locally for this demo</span>
+              <div>
+                <button class="secondary-button" id="cancelEdit" type="button">Cancel</button>
+                <button class="primary-button primary-button--small" id="saveEdit" type="button">Save changes</button>
+              </div>
+            </div>
+          </section>
+
+          <aside class="insight-rail">
+            <section class="decision-receipt" aria-labelledby="receipt-title" aria-live="polite">
+              <div class="receipt-header">
+                <span>
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3h10v14l-2-1.4-3 1.4-3-1.4L5 17V3ZM8 7h4M8 10h4" /></svg>
+                  Why this item
+                </span>
+                <span id="receiptIndex">1 of 5</span>
+              </div>
+
+              <p class="receipt-kicker">Supplier and quantity</p>
+              <h2 id="receipt-title">12 boxes from Dental Essentials</h2>
+              <p class="receipt-summary" id="receiptSummary">
+                Your recent use points to 11.4 boxes before the next planned restock. I rounded up once to avoid a mid-week top-up.
+              </p>
+
+              <div class="quantity-math">
+                <span>Quantity calculation</span>
+                <div id="receiptMath">
+                  <strong>3.8 / week</strong><i>×</i><strong>3 weeks</strong><i>=</i><strong>11.4</strong><b>→ 12 boxes</b>
+                </div>
+              </div>
+
+              <div class="landed-cost">
+                <div class="landed-cost-title">
+                  <span>Prices compared</span>
+                  <small>item + delivery</small>
+                </div>
+                <div class="comparison-table" id="comparisonTable">
+                  <div class="comparison-row comparison-row--chosen">
+                    <span>Dental Essentials <em>chosen</em></span><strong>A$186.00</strong>
+                  </div>
+                  <div class="comparison-row"><span>MediDent</span><strong>A$194.40</strong></div>
+                  <div class="comparison-row"><span>Henry Schein</span><strong>A$201.80</strong></div>
+                </div>
+              </div>
+
+              <div class="receipt-verdict">
+                <span aria-hidden="true">
+                  <svg viewBox="0 0 20 20"><path d="m4 10 4 4 8-8" /></svg>
+                </span>
+                <div><strong>Decision</strong><p id="receiptVerdict">Dental Essentials is A$8.40 cheaper after delivery, with no change to the product you usually buy.</p></div>
+              </div>
+            </section>
+
+            <section class="summary-card summary-card--compact" aria-labelledby="summary-title">
+              <div class="summary-heading">
+                <div>
+                  <span>One decision before sending</span>
+                  <h2 id="summary-title">A$<span id="orderTotal">901.50</span></h2>
+                </div>
+                <span class="currency-pill">AUD</span>
+              </div>
+
+              <div class="summary-actions">
+                <button class="primary-button primary-button--attention" id="sendOrder" type="button" data-ready="false">
+                  <span id="sendButtonLabel">Review 1 item to send</span>
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg>
+                </button>
+                <button class="secondary-button secondary-button--full" id="notNow" type="button">Not now</button>
+                <button class="secondary-button secondary-button--full" id="backToSent" type="button" hidden>Back to confirmation</button>
+                <p class="safety-copy">Sample data only. Send opens a demo confirmation screen.</p>
+              </div>
+
+              <div class="supplier-groups supplier-groups--compact">
+                <div class="supplier-group">
+                  <div><span class="supplier-logo supplier-logo--de">DE</span><span><strong>Dental Essentials</strong><small>1 item · free delivery</small></span></div>
+                  <strong>A$<span data-supplier-total="Dental Essentials">186.00</span></strong>
+                </div>
+                <div class="supplier-group">
+                  <div><span class="supplier-logo supplier-logo--hs">HS</span><span><strong>Henry Schein</strong><small>2 items · free delivery</small></span></div>
+                  <strong>A$<span data-supplier-total="Henry Schein">523.50</span></strong>
+                </div>
+                <div class="supplier-group">
+                  <div><span class="supplier-logo supplier-logo--md">MD</span><span><strong>MediDent</strong><small>2 items · free delivery</small></span></div>
+                  <strong>A$<span data-supplier-total="MediDent">192.00</span></strong>
+                </div>
+              </div>
+
+              <div class="summary-total">
+                <div><span>Items</span><strong>A$<span id="itemsTotal">901.50</span></strong></div>
+                <div><span>Delivery</span><strong class="free-label">Free</strong></div>
+                <div class="grand-total"><span>Total incl. GST</span><strong>A$<span id="grandTotal">901.50</span></strong></div>
+              </div>
+
+            </section>
+          </aside>
+        </div>
+      </main>
+
+      <main class="sent-page" id="sentPage" hidden>
+        <section class="sent-hero" aria-labelledby="success-title">
+          <div class="sent-hero-top">
+            <span class="sent-eyebrow">Harbour Dental · Demo confirmation</span>
+            <span class="sent-demo-pill">Sample data · nothing sent live</span>
+          </div>
+          <div class="sent-hero-body">
+            <span class="sent-hero-check" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="m8 16 5 5L24 10" /></svg>
+            </span>
+            <div>
+              <h1 id="success-title" tabindex="-1">Order marked as sent</h1>
+              <p>Three supplier requests are shown as sent. The clinic’s price decision is recorded with the order. No supplier was contacted.</p>
+            </div>
+          </div>
+          <div class="sent-hero-actions">
+            <button class="primary-button" id="viewOrderDetails" type="button">View reviewed order</button>
+            <button class="secondary-button" id="replayDemo" type="button">Replay demo</button>
+          </div>
+        </section>
+
+        <div class="sent-layout">
+          <section class="sent-suppliers" aria-labelledby="sent-suppliers-title">
+            <div class="sent-section-heading">
+              <div>
+                <span>Order breakdown</span>
+                <h2 id="sent-suppliers-title">Three supplier requests</h2>
+              </div>
+              <span>5 items · delivery included</span>
+            </div>
+            <div class="sent-supplier-list" id="sentSupplierList"></div>
+          </section>
+
+          <aside class="sent-side">
+            <section class="sent-total-card" aria-labelledby="sent-total-title">
+              <span>Final amount · incl. GST</span>
+              <h2 id="sent-total-title">A$<span id="sentTotal">901.50</span></h2>
+              <div><span>Items</span><strong>A$<span id="sentItemsTotal">901.50</span></strong></div>
+              <div><span>Delivery</span><strong>Free</strong></div>
+              <p>Sample pricing for this front-end demo.</p>
+            </section>
+
+            <section class="sent-decision-card" aria-labelledby="sent-decision-title">
+              <span class="sent-decision-kicker">Human decision recorded</span>
+              <h2 id="sent-decision-title">Price increase reviewed</h2>
+              <p id="sentDecisionCopy">The clinic reviewed the changed anaesthetic price before sending.</p>
+              <div class="sent-decision-detail">
+                <span>Lignocaine 2% cartridges</span>
+                <strong id="sentDecisionChoice">Familiar brand kept</strong>
+              </div>
+              <p class="sent-decision-note">The suggestion was shown for review; the clinic made the final choice.</p>
+            </section>
+          </aside>
+        </div>
+      </main>
+      <footer class="site-credit">© 2026 Maryna Safronova · Front-end demo</footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+      <span class="toast-icon" aria-hidden="true">
+        <svg viewBox="0 0 20 20"><path d="M4 4h12v12H4zM7 4v4h6V4M7 13h6" /></svg>
+      </span>
+      <span><strong>Review paused</strong><small>Your changes remain on this page while it is open.</small></span>
+      <button type="button" aria-label="Close notification">×</button>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
