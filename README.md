@@ -5,3 +5,4 @@ A clickable, responsive front-end sample showing how a dental clinic could revie
 Open `index.html` to try the order review and demo confirmation screens. The flagged anaesthetic line requires a clinic decision before Send.
 
 © 2026 Maryna Safronova. All rights reserved. This source code and design are shared for evaluation only; reuse or redistribution requires the author's permission.
+у Live demo: https://marinasafronova.github.io/chairside-restock-demo
